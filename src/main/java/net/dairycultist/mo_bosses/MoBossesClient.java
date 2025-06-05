@@ -11,6 +11,6 @@ public class MoBossesClient {
     @EventListener
     public void registerEntityRenderer(EntityRendererRegisterEvent event) {
 
-        event.renderers.put(OrgetzoitBoss.class, new OrgetzoitBossRenderer(new OrgetzoitBossModel(), 0.3f));
+        event.renderers.put(OrgetzoitBoss.class, new OrgetzoitBossRenderer(new OrgetzoitBossModel(), 1.0f));
     }
 }
