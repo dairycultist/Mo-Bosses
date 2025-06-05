@@ -25,6 +25,10 @@ public class OrgetzoitBossModel extends EntityModel {
             this.tentacles[i][0].addCuboid(-2.0F, 0.0F, -2.0F, 4, 16, 4);
             this.tentacles[i][0].setPivot(8.0F * MathHelper.cos(a), 0.0F, 8.0F * MathHelper.sin(a));
             this.tentacles[i][0].yaw = (PI / 2) - a;
+
+            this.tentacles[i][1] = new ModelPart(16, 16);
+            this.tentacles[i][1].addCuboid(-1.0F, 0.0F, -1.0F, 2, 16, 2);
+            this.tentacles[i][1].yaw = (PI / 2) - a;
         }
     }
 
@@ -36,6 +40,7 @@ public class OrgetzoitBossModel extends EntityModel {
 
         for (ModelPart[] tentacle : this.tentacles) {
             tentacle[0].render(scale);
+            tentacle[1].render(scale);
         }
     }
 
@@ -45,6 +50,10 @@ public class OrgetzoitBossModel extends EntityModel {
 
         for (ModelPart[] tentacle : this.tentacles) {
             tentacle[0].pitch = MathHelper.cos(a) * 0.4F + 0.4F;
+            tentacle[1].pitch = MathHelper.cos(a - 1.0F) * 0.4F + 0.4F;
+
+            // [1] needs to be positioned at the tip of [0]
+            tentacle[1].setPivot(tentacle[0].pivotX, tentacle[0].pivotY + MathHelper.cos(tentacle[0].pitch) * 16, tentacle[0].pivotZ);
         }
     }
 }
