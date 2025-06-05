@@ -1,5 +1,8 @@
 package net.dairycultist.mo_bosses;
 
+import net.dairycultist.mo_bosses.boss.OrgetzoitBoss;
+import net.mine_diver.unsafeevents.listener.EventListener;
+import net.modificationstation.stationapi.api.event.entity.EntityRegister;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.util.Namespace;
 import net.modificationstation.stationapi.api.util.Null;
@@ -8,6 +11,12 @@ public class MoBosses {
 
     @Entrypoint.Namespace
     public static Namespace NAMESPACE = Null.get();
+
+    @EventListener
+    public void registerEntities(EntityRegister event) {
+
+        event.register(OrgetzoitBoss.class, "Orgetzoit");
+    }
 
 //    public static Block COPPER_ORE;
 //    public static Block COPPER_BLOCK;
