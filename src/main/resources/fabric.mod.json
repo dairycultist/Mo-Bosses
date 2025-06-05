@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "mo_bosses",
+  "version": "${version}",
+
+  "name": "Mo' Bosses",
+  "description": "Adds unique bosses to the game!",
+  "authors": [ "dairycultist" ],
+
+  "license": "MIT",
+  "icon": "assets/mo_bosses/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "stationapi:event_bus": [ "net.dairycultist.mo_bosses.MoBosses" ],
+    "stationapi:event_bus_client": [ "net.dairycultist.mo_bosses.MoBossesClient" ],
+    "stationapi:event_bus_server": []
+  },
+  "mixins": [ "mo_bosses.mixins.json" ],
+
+  "depends": {
+    "minecraft": "1.0.0-beta.7.3"
+  }
+}
