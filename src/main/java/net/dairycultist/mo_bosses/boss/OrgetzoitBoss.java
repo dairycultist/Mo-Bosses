@@ -10,6 +10,7 @@ public class OrgetzoitBoss extends FlyingEntity {
 
         this.texture = "/assets/mo_bosses/stationapi/textures/entity/orgetzoit.png";
 
-        this.height = 4;
+        this.height = 14;
+        this.width = 4;
     }
 }
