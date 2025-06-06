@@ -53,7 +53,11 @@ public class OrgetzoitBossModel extends EntityModel {
             tentacle[1].pitch = MathHelper.cos(a - 1.0F) * 0.4F + 0.4F;
 
             // [1] needs to be positioned at the tip of [0]
-            tentacle[1].setPivot(tentacle[0].pivotX, tentacle[0].pivotY + MathHelper.cos(tentacle[0].pitch) * 16, tentacle[0].pivotZ);
+            tentacle[1].setPivot(
+                    tentacle[0].pivotX + MathHelper.sin(tentacle[0].pitch) * 16 * MathHelper.sin(tentacle[0].yaw),
+                    tentacle[0].pivotY + MathHelper.cos(tentacle[0].pitch) * 16,
+                    tentacle[0].pivotZ + MathHelper.sin(tentacle[0].pitch) * 16 * MathHelper.cos(tentacle[0].yaw)
+            );
         }
     }
 }
