@@ -13,9 +13,9 @@ public class OrgetzoitBossModel extends EntityModel {
 
     public OrgetzoitBossModel() {
 
-        this.body = new ModelPart(16, 16);
-        this.body.addCuboid(-8.0F, -24.0F, -8.0F, 16, 24, 16); // pos relative to pivot
-        this.body.setPivot(0.0F, 0.0F, 0.0F); // pivot in global space
+        this.body = new ModelPart(0, 0);
+        this.body.addCuboid(-6.0F, -16.0F, -6.0F, 12, 16, 12); // pos relative to pivot
+        this.body.setPivot(0.0F, 16.0F, 0.0F); // pivot in global space
 
         for (int i=0; i<8; i++) {
 
@@ -23,7 +23,7 @@ public class OrgetzoitBossModel extends EntityModel {
 
             this.tentacles[i][0] = new ModelPart(16, 16);
             this.tentacles[i][0].addCuboid(-2.0F, 0.0F, -2.0F, 4, 16, 4);
-            this.tentacles[i][0].setPivot(8.0F * MathHelper.cos(a), 0.0F, 8.0F * MathHelper.sin(a));
+            this.tentacles[i][0].setPivot(6.0F * MathHelper.cos(a), 16.0F, 6.0F * MathHelper.sin(a));
             this.tentacles[i][0].yaw = (PI / 2) - a;
 
             this.tentacles[i][1] = new ModelPart(16, 16);
@@ -47,6 +47,8 @@ public class OrgetzoitBossModel extends EntityModel {
     public void setAngles(float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch, float scale) {
 
         float a = ((System.currentTimeMillis() % 2000L) / 1000F) * PI;
+
+        body.roll = MathHelper.cos(a) * 0.08F;
 
         for (ModelPart[] tentacle : this.tentacles) {
             tentacle[0].pitch = MathHelper.cos(a) * 0.4F + 0.4F;
