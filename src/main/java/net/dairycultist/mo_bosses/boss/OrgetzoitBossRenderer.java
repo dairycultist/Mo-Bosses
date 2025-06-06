@@ -13,6 +13,8 @@ public class OrgetzoitBossRenderer extends LivingEntityRenderer {
 
     protected void applyScale(LivingEntity entity, float f) {
 
+        this.model.riding = ((OrgetzoitBoss) entity).diving;
+
         GL11.glScalef(4.0F, 4.0F, 4.0F);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }

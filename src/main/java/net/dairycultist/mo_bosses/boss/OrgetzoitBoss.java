@@ -9,8 +9,10 @@ import net.minecraft.world.World;
 
 public class OrgetzoitBoss extends FlyingEntity implements Monster {
 
+    public boolean diving = false;
+
     private Entity target = null;
-    private double followHeight = 20; // for swooping
+    private int diveCooldown = 0;
 
     public OrgetzoitBoss(World world) {
         super(world);
@@ -23,25 +25,45 @@ public class OrgetzoitBoss extends FlyingEntity implements Monster {
 
     protected void tickLiving() {
 
+        // this code sucks but basically it find the nearest player, floats to them,
+        // dives down onto them, makes an explosion, then flies back up to altitude
         if (target == null) {
 
             target = this.world.getClosestPlayer(this, 100.0);
 
         } else {
 
-            double dx = target.x - this.x;
-            double dz = target.z - this.z;
+            if (diving) {
 
-            double dist = MathHelper.sqrt(dx * dx + dz * dz);
+                this.move(0, (target.y - this.y - 5) / 20, 0);
 
-            if (dist > 2)
-                this.move(
-                        dx / dist * 0.05,
-                        (target.y - this.y + followHeight) / 20,
-                        dz / dist * 0.05
-                );
-            else
-                this.move(0, (target.y - this.y + followHeight) / 20, 0);
+                if (this.y - target.y < 0F) { // make this based on a timer
+                    diving = false;
+                    diveCooldown = 100;
+                    // make an explosion
+                }
+
+            } else {
+
+                if (diveCooldown > 0)
+                    diveCooldown--;
+
+                double dx = target.x - this.x;
+                double dz = target.z - this.z;
+
+                double dist = MathHelper.sqrt(dx * dx + dz * dz);
+
+                if (dist > 5)
+                    this.move(
+                            dx / dist * 0.2,
+                            (target.y - this.y + 20) / 20,
+                            dz / dist * 0.2
+                    );
+                else if (diveCooldown <= 0)
+                    diving = true;
+                else
+                    this.move(0, (target.y - this.y + 20) / 20, 0);
+            }
         }
     }
 

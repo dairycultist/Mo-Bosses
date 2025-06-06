@@ -11,6 +11,8 @@ public class OrgetzoitBossModel extends EntityModel {
     public ModelPart body;
     public ModelPart[][] tentacles = new ModelPart[8][2];
 
+    private float diveProgress = 0F;
+
     public OrgetzoitBossModel() {
 
         this.body = new ModelPart(0, 4);
@@ -46,13 +48,18 @@ public class OrgetzoitBossModel extends EntityModel {
 
     public void setAngles(float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch, float scale) {
 
+        if (this.riding) // riding = diving
+            diveProgress = diveProgress * 0.98F + 0.02F;
+        else
+            diveProgress = diveProgress * 0.95F;
+
         float a = ((System.currentTimeMillis() % 8000L) / 1000F) * PI;
 
         body.roll = MathHelper.cos(a / 2) * 0.08F;
 
         for (ModelPart[] tentacle : this.tentacles) {
-            tentacle[0].pitch = MathHelper.cos(a) * 0.4F + 0.4F;
-            tentacle[1].pitch = MathHelper.cos(a - 1.0F) * 0.4F + 0.4F;
+            tentacle[0].pitch = (1 - diveProgress) * (MathHelper.cos(             a) * 0.4F + 0.4F) + diveProgress * PI * 0.4F;
+            tentacle[1].pitch = (1 - diveProgress) * (MathHelper.cos(a - 1.0F) * 0.4F + 0.4F) + diveProgress * PI * 0.6F;
 
             // [1] needs to be positioned at the tip of [0]
             tentacle[1].setPivot(
