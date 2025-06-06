@@ -13,6 +13,7 @@ public class OrgetzoitBoss extends FlyingEntity implements Monster {
 
     private Entity target = null;
     private int diveCooldown = 0;
+    private int takeFlightCooldown = 0;
 
     public OrgetzoitBoss(World world) {
         super(world);
@@ -37,10 +38,16 @@ public class OrgetzoitBoss extends FlyingEntity implements Monster {
 
                 this.move(0, (target.y - this.y - 5) / 20, 0);
 
-                if (this.y - target.y < 0F) { // make this based on a timer
+                takeFlightCooldown--;
+
+                // make an explosion right as we land
+//                if () {
+//                    // make an explosion that doesn't damage us
+//                }
+
+                if (takeFlightCooldown <= 0) {
                     diving = false;
-                    diveCooldown = 100;
-                    // make an explosion
+                    diveCooldown = 500;
                 }
 
             } else {
@@ -59,9 +66,10 @@ public class OrgetzoitBoss extends FlyingEntity implements Monster {
                             (target.y - this.y + 20) / 20,
                             dz / dist * 0.2
                     );
-                else if (diveCooldown <= 0)
+                else if (diveCooldown <= 0) {
                     diving = true;
-                else
+                    takeFlightCooldown = 200;
+                } else
                     this.move(0, (target.y - this.y + 20) / 20, 0);
             }
         }
