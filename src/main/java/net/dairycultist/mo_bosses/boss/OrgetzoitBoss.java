@@ -22,12 +22,18 @@ public class OrgetzoitBoss extends FlyingEntity implements Monster {
 
         this.height = 14;
         this.width = 4;
+
+        this.maxHealth = 200; // TODO fix weird invulnerability after a single attack
+        this.health = 200;
+        this.hearts = 100;
     }
 
     protected void tickLiving() {
 
         // this code sucks but basically it find the nearest player, floats to them,
         // dives down onto them, makes an explosion, then flies back up to altitude
+
+        // TODO shoot fireballs randomly when flying
         if (target == null) {
 
             target = this.world.getClosestPlayer(this, 100.0);
@@ -60,7 +66,7 @@ public class OrgetzoitBoss extends FlyingEntity implements Monster {
 
                 double dist = MathHelper.sqrt(dx * dx + dz * dz);
 
-                if (dist > 5)
+                if (dist > 2)
                     this.move(
                             dx / dist * 0.2,
                             (target.y - this.y + 20) / 20,
